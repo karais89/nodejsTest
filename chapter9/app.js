@@ -71,6 +71,31 @@ router.post('/insert', function(request, response) {
 		response.redirect('/');
 	});	
 });
-router.get('/edit/:id', function(request, response) {});
-router.post('/edit/:id', function(request, response) {});
+
+router.get('/edit/:id', function(request, response) {
+	// 파일을 읽습니다.
+	fs.readFile('edit.html', 'utf8', function(error, data) {
+		// 데이터베이스 쿼리를 실행.
+		client.query('SELECT * FROM products WHERE id = ?', [request.params.id],
+		function(error, result) {
+			 // 응답.
+			 response.send(ejs.render(data, {
+				 data: result[0]
+			 }));
+		});
+	});
+});
+
+router.post('/edit/:id', function(request, response) {
+	// 변수 선언.
+	var body = request.body;	
+	
+	// 데이터베이스 쿼리를 실행.
+	client.query('UPDATE products SET name=?, modelnumber=?, series=? WHERE id=?', [
+		body.name, body.modelnumber, body.series, request.params.id
+	], function() {
+		// 응답.
+		response.redirect('/');
+	});
+});
 
