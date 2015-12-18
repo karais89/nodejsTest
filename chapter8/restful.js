@@ -12,8 +12,59 @@ var bodyParser = require('body-parser');
 var router = express.Router();
 
 // 더미 데이터베이스 구현.
+// 즉시 실행함수.
 var DummyDB = (function() {
+	// 바깥 영역과 다른 새 영역을 생성하여 변수 충돌 방지
+    // 이 영역의 내용은 즉시 실행합니다.
+	// 자바스크립트의 융통성?
+	// 변수 선언.
+	var DummyDB = {};
+	var storage = [];
+	var count 	= 1;
 	
+	// 메서드 구현.
+	// get
+	DummyDB.get = function (id) {
+		if(id) {
+			// 변수 가공.
+			id = (typeof id == 'string') ? Number(id) : id;
+			
+			// 데이터 선택.
+			for(var i in storage) if (storage[i].id == id) {
+				return storage[i];
+			}				
+		}else {
+			return storage;
+		}
+	};		
+	
+	// insert
+	DummyDB.insert = function(data) {
+		data.id = count++;
+		storage.push(data);
+		return data;	
+	};
+	
+	// remove 
+	DummyDB.remove = function(id) {
+		// 변수 가공.
+		id = (typeof id == 'string') ? Number(id) : id;
+		
+		// 제거.
+		for(var i in storage) if (storage[i].id == id) {
+			// 데이터 제거. splice -> 배열에서 요소 제거.
+			storage.splice(i, 1);
+			
+			// 리턴. 데이터 삭제 성공 
+			return true;
+		}
+		
+		// 리턴. 데이터 삭제 실패.
+		return false;
+	};
+	
+	// 리턴.
+	return DummyDB;	
 })();
 
 // 서버 생성.
