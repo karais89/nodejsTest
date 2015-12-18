@@ -23,7 +23,18 @@ http.createServer(app).listen(52273, function() {
 });
 
 // 라우트 실행.
-router.get('/', function(request, response) {});
+router.get('/', function(request, response) {
+	// 파일을 읽습니다.
+	fs.readFile('list.html', 'utf8', function(error, data) {
+		// 데이터베이스 쿼리를 실행.
+		client.query('SELECT * FROM products', function(error, results) {
+			// 응답.
+			response.send(ejs.render(data, {
+				data: results
+			}));
+		});
+	});
+});
 router.get('/delete/:id', function(request, response) {});
 router.get('/insert', function(request, response) {});
 router.post('insert', function(request, response) {});
