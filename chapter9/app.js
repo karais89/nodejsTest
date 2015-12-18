@@ -35,7 +35,19 @@ router.get('/', function(request, response) {
 		});
 	});
 });
-router.get('/delete/:id', function(request, response) {});
+router.get('/delete/:id', function(request, response) {
+	// // 데이터 베이스 쿼리 실행.
+	// client.query('DELETE FROM products WHERE id=?', [request.param('id')], function() {
+	// 	// 응답합니다.
+	// 	response.redirect('/');
+	// })
+	
+	// 데이터 베이스 쿼리 실행.
+	client.query('DELETE FROM products WHERE id=?', [request.params.id], function() {
+		// 응답합니다.
+		response.redirect('/');
+	})
+});
 router.get('/insert', function(request, response) {});
 router.post('insert', function(request, response) {});
 router.get('/edit/:id', function(request, response) {});
