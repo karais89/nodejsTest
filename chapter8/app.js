@@ -27,10 +27,51 @@ router.get('/', function(request, response) {
 });
 
 router.post('/', function(request, response) {
-	console.log(request.body);
-	console.log(request.files);
+	// console.log(request.body);
+	// console.log(request.files);
+	// 
+	// response.redirect('/');
+	// 
 	
-	response.redirect('/');
+	// 이미지 파일처리.
+	// 변수 선언.
+	// var comment = request.param('comment');
+	var comment = request.body.comment;
+	var imageFile = request.files.image;
+	
+	console.log("comment:", comment);
+	console.log("imageFile:", imageFile);
+	
+	if(imageFile) {
+		// 변수 선언.
+		var name = imageFile.name;
+		var path = imageFile.path;
+		var type = imageFile.type;
+		
+		console.log("name:", name);
+		console.log("path:", path);
+		console.log("type:", type);
+		
+		// 이미지 파일 확인.
+		if(type.indexOf('image') != -1) {
+			// 이미지 파일의 경우. 파일이름 변경.
+			var outputPath = __dirname + '/multipart/' + Date.now() + '_' + name;
+			
+			fs.rename(path, outputPath, function(error) {
+				response.redirect('/');
+			});
+		}else {
+			console.log("image file not");
+			// 이미지 파일이 아닌 경우 파일 이름 제거.
+			fs.unlink(path, function(error) {
+				response.sendStatus(400);
+			});
+		}	
+	}else {
+		// 파일이 없는 경우.
+		console.log("file not");
+		response.sendStatus(404);
+	}
 });
 
 // 서버를 실행.
