@@ -119,6 +119,11 @@ router.put('/user/:id', function(request, response) {
 	item.name = name || item.name;
 	item.region = region || item.region;
 	
+	// ex
+	// var o5 = "Cat" || "Dog";    // t || t returns Cat
+	// var o6 = false || "Cat";    // f || t returns Cat
+	// var o7 = "Cat" || false;    // t || f returns Cat
+	
 	// 응답합니다.
 	response.send(item); 
 });
