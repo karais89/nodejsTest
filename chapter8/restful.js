@@ -120,7 +120,7 @@ router.put('/user/:id', function(request, response) {
 	item.region = region || item.region;
 	
 	// 응답합니다.
-	response.send(item);
+	response.send(item); 
 });
 
 router.delete('/user/:id', function(request, response) {
