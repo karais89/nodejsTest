@@ -75,9 +75,35 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(router);
 
 // 라우터 설정.
-router.get('/user', function(request, response) {});
-router.get('/user/:id', function(request, response) {});
-router.post('/user', function(request, response) {});
+router.get('/user', function(request, response) {
+	response.send(DummyDB.get());
+});
+
+router.get('/user/:id', function(request, response) {
+	// response.send(DummyDB.get(request.param('id')));
+	response.send(DummyDB.get(request.params.id));	
+});
+
+router.post('/user', function(request, response) {
+	// 변수 선언.
+	// var name = request.param('name');
+	// var region = request.param('region');
+	
+	// body, query, params 차이가??
+	var name = request.body.name;
+	var region = request.body.region;	
+	
+	// 유효성 검사.
+	if(name && region) {
+		response.send(DummyDB.insert({
+			name: name,
+			region: region
+		}));
+	}else {
+		throw new Error('error');
+	}
+});
+
 router.put('/user/:id', function(request, response) {});
 router.delete('/user/:id', function(request, response) {});
 
