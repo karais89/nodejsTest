@@ -104,7 +104,25 @@ router.post('/user', function(request, response) {
 	}
 });
 
-router.put('/user/:id', function(request, response) {});
+router.put('/user/:id', function(request, response) {
+	// 변수 선언.
+	// var id = request.param('id');
+	// var name = reqeust.param('name');
+	// var region = request.param('region');
+	
+	var id = request.params.id;
+	var name = request.body.name;
+	var region = request.body.region;		
+	
+	// DB 수정.
+	var item = DummyDB.get(id);
+	item.name = name || item.name;
+	item.region = region || item.region;
+	
+	// 응답합니다.
+	response.send(item);
+});
+
 router.delete('/user/:id', function(request, response) {});
 
 // 서버 실행.
