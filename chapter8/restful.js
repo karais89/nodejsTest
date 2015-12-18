@@ -123,7 +123,10 @@ router.put('/user/:id', function(request, response) {
 	response.send(item);
 });
 
-router.delete('/user/:id', function(request, response) {});
+router.delete('/user/:id', function(request, response) {
+	// response.send(DummyDB.remove(request.param('id')));
+	response.send(DummyDB.remove(request.params.id));	
+});
 
 // 서버 실행.
 http.createServer(app).listen(52273, function() {
