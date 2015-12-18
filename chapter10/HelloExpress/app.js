@@ -1,3 +1,4 @@
+// 모듈을 추출.
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -8,6 +9,7 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
+// 서버를 생성.
 var app = express();
 
 // view engine setup

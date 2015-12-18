@@ -1,6 +1,10 @@
 # nodejsTest
-모던웹을 위한 Node.js 따라하기
 
-Node.js 버전 v.4.2.3 LTS
+express 4
 
-Node.js Api : https://nodejs.org/api/
+npm install -g express
+npm install -g express-generator
+
+1. express HelloExpresss
+2. cd HelloExpress && npm install
+3. node app
