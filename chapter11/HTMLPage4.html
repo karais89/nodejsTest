@@ -7,7 +7,21 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-        
+        // HTML 문서가 모두 준비되면.
+        $(document).ready(function() {
+           // 변수 선언.
+           var socket = io.connect();
+           
+           // 이벤트 연결.
+           socket.on('message', function(data) {
+               
+           });
+           
+           // 버튼 클릭.
+           $('button').click(function() {
+               
+           });
+        });
     </script>
 </head>
 <body>
