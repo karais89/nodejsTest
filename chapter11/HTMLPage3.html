@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- 구글이 서비스하는 jquery 로 변경함 -->
+    <!-- <script scr="http://code.jquery.com/jquery-1.10.2.js"></script> -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        // jquery 사용?
+        window.onload = function() {
+          // 변수 선언.
+          var room = prompt('방 이름을 입력하세요.', '');
+          var socket = io.connect();
+          
+          // 소켓 이벤트를 연결.
+          socket.emit('join', room);
+          socket.on('message', function(data) {
+             $('<p>' + data + '</p>').appendTo('body'); 
+          });
+          
+          // 문서 객체 이벤트 연결.
+          document.getElementById('button').onclick = function() {
+            socket.emit('message', 'socket.io room message');  
+          };
+        };
+    </script>
+</head>
+<body>
+    <button id="button">EMIT</button>
+    <script type="text/javascript">
+    $('div').text('새 내용');
+    </script>
+</body>
+</html>
