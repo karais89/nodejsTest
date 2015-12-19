@@ -23,15 +23,20 @@ io.sockets.on('connection', function(socket) {
     // setname 이벤트 발생.
     socket.on('setname', function(data) {
        // 클라이언트 데이터 저장.
-       socket.set('name', data); 
+       // socket.set is not a function
+    //    socket.set('name', data); 
+        socket.name = data;
     });
     
     // getname 이벤트 발생.
     socket.on('getname', function(data) {
-       // 데이터 추출.
-       socket.get('name', function(error, data) {
-         // 데이터 전송.
-         socket.emit('responsename', name);  
-       });
+       // socket.get is not a function
+    //    // 데이터 추출.
+    //    socket.get('name', function(error, data) {
+    //      // 데이터 전송.
+    //      socket.emit('responsename', name);  
+    //    });
+    
+        socket.emit('responsename', socket.name);  
     });
 });
