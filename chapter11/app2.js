@@ -19,6 +19,7 @@ var io = socketio.listen(server);
 io.sockets.on('connection', function(socket) {
     // message event
     socket.on('message', function(data) {
+        console.log("message", data);
        // 클라이언트의 message 이벤트 실행.
        io.sockets.emit('message', data); 
     });   
