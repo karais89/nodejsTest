@@ -17,5 +17,9 @@ var server = http.createServer(function (request, response) {
 // 소켓 서버를 만듬.
 var io = socketio.listen(server);
 io.sockets.on('connection', function(socket) {
-    
+    // message event
+    socket.on('message', function(data) {
+       // 클라이언트의 message 이벤트 실행.
+       io.sockets.emit('message', data); 
+    });   
 });
