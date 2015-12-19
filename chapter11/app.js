@@ -20,5 +20,18 @@ server.on('request', function(request, response) {
 
 // 소켓 서버 이벤트 연결.
 io.sockets.on('connection', function(socket) {
+    // setname 이벤트 발생.
+    socket.on('setname', function(data) {
+       // 클라이언트 데이터 저장.
+       socket.set('name', data); 
+    });
     
+    // getname 이벤트 발생.
+    socket.on('getname', function(data) {
+       // 데이터 추출.
+       socket.get('name', function(error, data) {
+         // 데이터 전송.
+         socket.emit('responsename', name);  
+       });
+    });
 });
